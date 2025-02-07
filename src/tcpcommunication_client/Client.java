@@ -21,11 +21,12 @@ public class Client {
     Socket socket;
 
     public Client(String nome){
-
+        this.nome = nome;
     }
 
     public Client(String nome, String colore){
-
+        this.nome = nome;
+        this.colore = colore;
     }
 
     public void connetti(String nomeServer, int portaServer){
@@ -46,18 +47,18 @@ public class Client {
 
     }
 
+    public void leggi(){
+
+    }
+
     public void chiudi(){
         if(socket!=null) {
             try {
                 socket.close();
                 System.out.println("5) Chiusura connessione avvenuta con successo");
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.err.println("Errore durante la chiusura del socket");
             }
         }
-    }
-
-    public void leggi(){
-
     }
 }
