@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class Client {
     String nome;
     String colore;
-    Socket socket;
+    public Socket socket = null;
 
     public Client(String nome){
         this.nome = nome;
