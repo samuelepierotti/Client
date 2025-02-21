@@ -10,12 +10,22 @@ package tcpcommunication_client;
  */
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Client {
+    InputStream is;
+    Scanner streamIn = null;
+    OutputStream os;
+    PrintWriter streamOut = null;
+    String messaggioIn, messaggioOut;
     String nome;
     String colore;
     public Socket socket = null;
@@ -44,11 +54,43 @@ public class Client {
     }
 
     public void scrivi(){
-
+        try {
+            os = socket.getOutputStream();
+            streamOut = new PrintWriter(os);
+            streamOut.flush();
+            messaggioOut = "Ci sono!";
+            streamOut.println(messaggioOut);
+            streamOut.flush();
+        }  catch (ConnectException e) {
+            System.err.println("Server non disponibile");
+        } catch (UnknownHostException e) {
+            System.err.println("DNS error");
+        } catch (IOException ex) {
+            System.err.println("Errore di I/O");
+        }
+        finally{
+            try {
+                if (socket!= null) {
+                    socket.close();
+                    System.out.println("Socket distrutto");
+                }
+            }
+        }
     }
 
     public void leggi(){
-
+        try {
+            is = socket.getInputStream();
+            streamIn = new Scanner(is);
+            messaggioIn = streamIn.nextLine();
+            System.out.println("Messaggio del server: " + messaggioIn);
+        } catch (ConnectException e) {
+            System.err.println("Server non disponibile");
+        } catch (UnknownHostException e) {
+            System.err.println("DNS error");
+        } catch (IOException ex) {
+            System.err.println("Errore di I/O");
+        }
     }
 
     public void chiudi(){
