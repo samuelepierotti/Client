@@ -21,33 +21,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args, Socket socket) {
-        InputStream is;
-        Scanner streamIn = null;
-        OutputStream os;
-        PrintWriter streamOut = null;
-        String messaggioIn, messaggioOut;
-
-        try {
-            Client c = new Client("localhost");
-            c.connetti("localhost",2000);
-            
-            os = socket.getOutputStream();
-            streamOut = new PrintWriter(os);
-            streamOut.flush();
-            is = socket.getInputStream();
-            streamIn = new Scanner(is);
-            messaggioIn = streamIn.nextLine();
-            System.out.println("Messaggio del server: " + messaggioIn);
-            messaggioOut = "Ci sono!";
-            streamOut.println(messaggioOut);
-            streamOut.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        Client c = new Client("localhost");
+        c.connetti("localhost",2000);
         c.chiudi();
-        
     }
     
 }
