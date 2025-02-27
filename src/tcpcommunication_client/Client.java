@@ -47,14 +47,12 @@ public class Client {
         catch(ConnectException ex){
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Errore di connessione, server non in ascolto");
-        }
-        catch (IOException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("Errore nello stabilimento della connessione con il server");
-        }
-        catch (UnknownHostException ex) {
+        } catch (UnknownHostException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Errore nella risoluzione del nome del server");
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Errore nello stabilimento della connessione con il server");
         }
     }
 
