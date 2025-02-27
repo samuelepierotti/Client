@@ -37,11 +37,6 @@ public class Client {
         this.nome = nome;
     }
 
-    public Client(String nome, String colore){
-        this.nome = nome;
-        this.colore = colore;
-    }
-
     public void connetti(String nomeServer, int portaServer){
         try {
             socket = new Socket(nomeServer, portaServer);
@@ -73,15 +68,7 @@ public class Client {
             streamOut.flush();
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("Errore di I/O");
-        }
-        finally{
-            try {
-                if (socket!= null) {
-                    socket.close();
-                    System.out.println("Socket distrutto");
-                }
-            }
+            System.err.println("Errore a inizializzare lo stream di output");
         }
     }
 
@@ -93,7 +80,7 @@ public class Client {
             System.out.println("Messaggio del server: " + messaggioIn);
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("Errore di I/O");
+            System.err.println("Errore nell'inizializzazione dello stream di input");
         }
     }
 
