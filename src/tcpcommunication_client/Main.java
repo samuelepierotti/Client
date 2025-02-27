@@ -23,6 +23,8 @@ public class Main {
     public static void main(String[] args, Socket socket) {
         Client c = new Client("localhost");
         c.connetti("localhost",2000);
+        c.leggi();
+        c.scrivi();
         c.chiudi();
     }
     
