@@ -30,6 +30,9 @@ public class Client {
     String colore;
     public Socket socket = null;
 
+    public static final String BLUE = "\u001B[34m";
+    public static final String RESET = "\u001B[0m";
+
     public Client(String nome){
         this.nome = nome;
     }
@@ -43,13 +46,20 @@ public class Client {
         try {
             socket = new Socket(nomeServer, portaServer);
             System.out.println("1) Connessione con il server avvenuta");
+            System.out.println(BLUE + "Socket client: " + socket.getLocalSocketAddress() + RESET);
+            System.out.println("Socket server: " + socket.getRemoteSocketAddress());
         }
         catch(ConnectException ex){
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Errore di connessione, server non in ascolto");
         }
         catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Errore nello stabilimento della connessione con il server");
+        }
+        catch (UnknownHostException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Errore nella risoluzione del nome del server");
         }
     }
 
@@ -61,11 +71,8 @@ public class Client {
             messaggioOut = "Ci sono!";
             streamOut.println(messaggioOut);
             streamOut.flush();
-        }  catch (ConnectException e) {
-            System.err.println("Server non disponibile");
-        } catch (UnknownHostException e) {
-            System.err.println("DNS error");
         } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Errore di I/O");
         }
         finally{
@@ -84,11 +91,8 @@ public class Client {
             streamIn = new Scanner(is);
             messaggioIn = streamIn.nextLine();
             System.out.println("Messaggio del server: " + messaggioIn);
-        } catch (ConnectException e) {
-            System.err.println("Server non disponibile");
-        } catch (UnknownHostException e) {
-            System.err.println("DNS error");
         } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Errore di I/O");
         }
     }
